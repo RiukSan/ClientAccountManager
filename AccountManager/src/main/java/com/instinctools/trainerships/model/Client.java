@@ -14,18 +14,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table
+@Table(name = "Client", uniqueConstraints = { 
+        @UniqueConstraint(columnNames = "ID")}) 
 public class Client implements Serializable {
 
 	private static final long serialVersionUID = 5681817303654694077L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", unique = true, nullable = false) 
 	private Integer Id;
 
-	@Column
+	@Column(name = "NAME", unique = false, nullable = false) 
 	private String name;
 
 	public Client() {

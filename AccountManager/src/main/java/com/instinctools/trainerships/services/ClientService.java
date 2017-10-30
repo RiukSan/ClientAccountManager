@@ -13,7 +13,7 @@ public interface ClientService {
 
 	public void delete(int id);
 
-	public Client edit(int id);
+	public Client get(int id);
 
 	public List<Client> getAllUsers();
 }

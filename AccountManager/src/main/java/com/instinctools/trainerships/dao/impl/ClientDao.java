@@ -1,23 +1,28 @@
-package com.instinctools.trainerships.services.impl;
+package com.instinctools.trainerships.dao.impl;
 
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.instinctools.trainerships.HibernateUtil;
+import com.instinctools.trainerships.dao.BasicDao;
 import com.instinctools.trainerships.model.Client;
-import com.instinctools.trainerships.services.ClientService;
 
-@Service
-public class JPAClientService implements ClientService {
+@Repository
+public class ClientDao implements BasicDao<Client> {
+	
 	private Session session;
 
-	public JPAClientService() {
+	@Override
+	public Client create(Integer userId, String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	@Override
 	public Client create(String name) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
@@ -28,6 +33,20 @@ public class JPAClientService implements ClientService {
 		return client;
 	}
 
+	@Override
+	public Client read(Integer id) {
+		session = HibernateUtil.getSessionFactory().openSession();
+		Client client = (Client) session.load(Client.class, id);
+		return client;
+	}
+
+	@Override
+	public Client update(Integer id, String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public void delete(int id) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
@@ -36,13 +55,8 @@ public class JPAClientService implements ClientService {
 		transaction.commit();
 	}
 
-	public Client edit(int id) {
-		session = HibernateUtil.getSessionFactory().openSession();
-		Client client = (Client) session.load(Client.class, id);
-		return client;
-	}
-
-	public List<Client> getAllUsers() {
+	@Override
+	public List<Client> readAll() {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Query<Client> query = session.createQuery("from Client", Client.class);
 		List<Client> list = query.getResultList();

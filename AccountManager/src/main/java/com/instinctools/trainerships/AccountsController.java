@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.instinctools.trainerships.services.impl.JPAAccountService;
+import com.instinctools.trainerships.services.impl.AccountServiceImpl;
 
 @Controller
 public class AccountsController {
 
-	ApplicationContext context = new AnnotationConfigApplicationContext(JPAAccountService.class);
-	JPAAccountService accountService = context.getBean(JPAAccountService.class);
+	ApplicationContext context = new AnnotationConfigApplicationContext(AccountServiceImpl.class);
+	AccountServiceImpl accountService = context.getBean(AccountServiceImpl.class);
 	
 	@RequestMapping(value = "/updateAccount", method = RequestMethod.GET)
 	public String update(Locale locale, Model model, @RequestParam(value = "id") Integer id,

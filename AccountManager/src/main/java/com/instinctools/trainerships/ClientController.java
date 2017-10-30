@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.instinctools.trainerships.model.Client;
-import com.instinctools.trainerships.services.impl.JPAClientService;
+import com.instinctools.trainerships.services.impl.ClientServiceImpl;
 
 @Controller
 public class ClientController {
 
-	ApplicationContext context = new AnnotationConfigApplicationContext(JPAClientService.class);
-	JPAClientService clientService = context.getBean(JPAClientService.class);
+	ApplicationContext context = new AnnotationConfigApplicationContext(ClientServiceImpl.class);
+	ClientServiceImpl clientService = context.getBean(ClientServiceImpl.class);
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String list(Locale locale, Model model) {
@@ -41,7 +41,7 @@ public class ClientController {
 
 	@RequestMapping(value = "/editClient", method = RequestMethod.GET)
 	public String edit(Locale locale, Model model, @RequestParam(value = "id") int id) {
-		Client client = clientService.edit(id);
+		Client client = clientService.get(id);
 		model.addAttribute("client", client);
 		return "editClient";
 	}
